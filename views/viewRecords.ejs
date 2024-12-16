@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Records</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+    
+    <div class="m-4">
+        <h3 class="text-center mb-3">View Records</h3>
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Image</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% records.forEach((record) => { %>
+                            <tr>
+                                <td><%= record.name %></td>
+                                <td><%= record.email %></td>
+                                <td><%= record.phone %></td>
+                                <td><a href="<%= record.image %>" target="_blank">View Image</a></td>
+                                <td><%= record.status.toString() %></td>
+                                <td><%= record.createdDate %></td>
+                                <td><%= record.updatedDate %></td>
+                                <td>
+                                    <a href="/editRecord/<%= record._id %>" class="btn btn-primary">Edit</a>
+                                    <a href="/deleteRecord/<%= record._id %>" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
