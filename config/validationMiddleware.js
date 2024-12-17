@@ -1,9 +1,7 @@
 const { body, validationResult } = require('express-validator');
 
+const User = require('../models/recordModel');
 
-
-// console.log("djkf",   body('name')
-// .notEmpty());
 
 
 const validateRecord = [
@@ -18,7 +16,14 @@ const validateRecord = [
   // Validate email
   body('email')
     .isEmail()
-    .withMessage('Invalid email format'),
+    .withMessage('Invalid email format')
+    .custom(async (email) => {
+      const user = await User.findOne({ email });
+      if (user) {
+        throw new Error('Email already exists');
+      }
+      return true;
+    }),
 
   // Validate phone number 
   body('phone')
@@ -36,13 +41,6 @@ const validateRecord = [
     .withMessage('Invalid image URL or path')
     .isString()
     .withMessage('Invalid image URL or path'),
-
-  // Validate status (ensure it's a boolean value)
-  body('status')
-    .notEmpty()
-    .withMessage('Status is required')
-    .isIn(['true', 'false'])
-    .withMessage('Status must be either true or false'),
 
 ];
 

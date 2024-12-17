@@ -1,18 +1,14 @@
 const mongoose = require('mongoose');
-const { type } = require('os');
-const recordModelSchema = mongoose.Schema({
-    name : String,
-    email : {
-        type : String,
-        unique : true
-    },
-    phone : String,
-    image : String,
-    status : Boolean,
-    createdDate : String,
-    updatedDate : String
-})
 
-const recordModel = mongoose.model('record',recordModelSchema);
+const recordSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    phone: { type: String, required: true },
+    image: { type: String },
+    status: { type: Boolean, default: true },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
+});
 
-module.exports = recordModel;
+const Record = mongoose.model('record', recordSchema);
+module.exports = Record;
